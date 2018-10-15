@@ -12,10 +12,18 @@ public class mPoints {
     public static void main(String[] args){
 
         int waitTime = 270;
-
-        if (args.length == 1){
-            waitTime = Integer.parseInt(args[0]);
+        try{
+            if (args.length == 1){
+                waitTime = Integer.parseInt(args[0]);
+                if (waitTime < 0){
+                    throw NumberFormatException;
+                }
+            }
+        }catch(NumberFormatException e){
+            // Assuming command is invoked with bash script
+            System.out.println("Usage: mpoint [number of milliseconds for timeout]")
         }
+        
         try {
             WebClient web = new WebClient(BrowserVersion.CHROME);
             web.getOptions().setCssEnabled(false);
