@@ -10,6 +10,12 @@ import java.util.regex.Pattern;
 
 public class mPoints {
     public static void main(String[] args){
+
+        int waitTime = 270;
+
+        if (args.length == 1){
+            waitTime = Integer.parseInt(args[0]);
+        }
         try {
             WebClient web = new WebClient(BrowserVersion.CHROME);
             web.getOptions().setCssEnabled(false);
@@ -19,7 +25,7 @@ public class mPoints {
             HtmlForm form = wstac.getFormByName("aspnetForm");
             HtmlSubmitInput button = form.getInputByName("ctl00$cphBody$btnLogin");
             button.click();
-            web.waitForBackgroundJavaScript(270);
+            web.waitForBackgroundJavaScript(waitTime);
 
             HtmlPage p = web.getPage(web.getCurrentWindow().getEnclosedPage().getUrl());
 
@@ -28,11 +34,11 @@ public class mPoints {
             f1.getInputByName("ucWUSTLKeyLogin$txtUsername").setAttribute("value", System.getenv("WEBSTAC_USERNAME"));
             f1.getInputByName("ucWUSTLKeyLogin$txtPassword").setAttribute("value", System.getenv("WEBSTAC_PASSWORD"));
             f1.getInputByName("ucWUSTLKeyLogin$btnLogin").click();
-            web.waitForBackgroundJavaScript(270);
+            web.waitForBackgroundJavaScript(waitTime);
 
             //web.getPage(web.getCurrentWindow().getEnclosedPage().getUrl());
             HtmlPage p2 = web.getPage("https://acadinfo.wustl.edu/WSHome/Generic.aspx?Type=Meal%20Plan&Page=/CBORD/MealPlan/");
-            web.waitForBackgroundJavaScript(270);
+            web.waitForBackgroundJavaScript(waitTime);
 
             Pattern pattern1 = Pattern.compile("Current Point Balance: (\\d+.\\d+)");
             Pattern pattern2 = Pattern.compile("Suggested Point Balance: (\\d+.\\d+)");

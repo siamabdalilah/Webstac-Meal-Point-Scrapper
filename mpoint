@@ -1,5 +1,11 @@
 #!/bin/bash
 
-cd ~/bin/fi;
-java mPoints;
+cd ~/repos/mpoints;
+
+if [ "$#" = 1 ]; then
+	java mPoints $1;
+else
+	java mPoints;
+fi
+
 cd - > /dev/null;
